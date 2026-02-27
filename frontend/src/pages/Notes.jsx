@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import "./Notes.css";
+import API_BASE from "../api";
 
 function Notes() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Notes() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/generate-notes-ai", {
+      const response = await fetch(`${API_BASE}/generate-notes-ai`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

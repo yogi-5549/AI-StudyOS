@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Youtube.css";
+import API_BASE from "../api";
 
 function Youtube() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Youtube() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/summarize-youtube", {
+      const response = await fetch(`${API_BASE}/summarize-youtube`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

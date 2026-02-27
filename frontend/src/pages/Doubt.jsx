@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Doubt.css";
+import API_BASE from "../api";
 
 function Doubt() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Doubt() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/solve-doubt", {
+      const response = await fetch(`${API_BASE}/solve-doubt`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

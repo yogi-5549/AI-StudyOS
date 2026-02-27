@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import "./Planner.css";
+import API_BASE from "../api";
 
 function Planner() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Planner() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/generate-plan", {
+      const response = await fetch(`${API_BASE}/generate-plan`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
