@@ -1,0 +1,71 @@
+.youtube-container {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  font-family: "Segoe UI", sans-serif;
+  color: var(--text-primary);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 80px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.nav-links span {
+  margin-left: 30px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.youtube-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
+
+.youtube-card {
+  width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.youtube-card input {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.youtube-card button {
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.4);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

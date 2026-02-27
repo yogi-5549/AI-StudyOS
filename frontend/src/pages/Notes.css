@@ -1,0 +1,97 @@
+.notes-container {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  font-family: "Segoe UI", sans-serif;
+  color: var(--text-primary);
+}
+
+.notes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
+
+.notes-card {
+  width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.notes-card input,
+.notes-card textarea {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.notes-card textarea {
+  height: 100px;
+  resize: none;
+}
+
+.generate-btn {
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.4);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+/* FORCE TEXT COLORS INSIDE CARD */
+.notes-card {
+  color: #222;
+}
+
+/* Labels (if you add them later) */
+.notes-card label {
+  color: #222;
+}
+
+/* Inputs & Textarea text */
+.notes-card input,
+.notes-card textarea {
+  color: #222;
+}
+
+/* Placeholder color */
+.notes-card input::placeholder,
+.notes-card textarea::placeholder {
+  color: #777;
+}
+
+/* Keep card white even in dark mode */
+[data-theme="dark"] .notes-card {
+  background: white;
+}
+.download-btn {
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background: #2d8f85;
+  color: white;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  opacity: 0.9;
+}

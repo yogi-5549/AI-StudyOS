@@ -1,0 +1,95 @@
+.landing-container {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  font-family: "Segoe UI", sans-serif;
+  color: var(--text-primary);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 80px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.nav-links span {
+  margin-left: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: 0.3s;
+}
+
+.nav-links span:hover {
+  color: var(--accent);
+}
+
+/* Dark Mode Button */
+.theme-toggle {
+  margin-left: 30px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px;
+}
+
+.hero-left {
+  max-width: 50%;
+}
+
+.sub-heading {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.main-heading {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.cta-button {
+  background-color: var(--accent);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  opacity: 0.9;
+}
+
+.hero-right img {
+  width: 380px;
+}

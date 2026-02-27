@@ -1,0 +1,191 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #1e293b; /* Force dark text globally */
+}/* GLOBAL */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+}
+
+/* MAIN CONTAINER */
+.container {
+  text-align: center;
+  padding: 60px 20px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 40px;
+  color: #2c3e50;
+}
+
+/* INPUT SECTION */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+textarea {
+  width: 65%;
+  padding: 18px;
+  border-radius: 12px;
+  border: none;
+  background-color: #2d2d2d;
+  color: white;
+  font-size: 16px;
+  resize: none;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+textarea:focus {
+  outline: none;
+  transform: scale(1.02);
+}
+
+/* BUTTONS */
+button {
+  margin-top: 25px;
+  padding: 14px 30px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* PRIMARY BUTTON */
+button {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+  color: white;
+}
+
+/* ACTION BUTTONS */
+.action-buttons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.practice-btn {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.notes-btn {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+}
+
+/* RESULT CARD */
+.result-box {
+  margin-top: 50px;
+  padding: 40px;
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border-radius: 16px;
+  text-align: left;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.5s ease;
+  color: #1e293b;
+}
+
+.result-box h3 {
+  margin-top: 30px;
+  color: #2c3e50;
+}
+
+/* PRACTICE + NOTES */
+.practice-box,
+.notes-box {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.practice-box {
+  background-color: #f8fbff;
+}
+
+.notes-box {
+  background-color: #fff8e6;
+}
+
+.practice-box ul,
+.notes-box ul {
+  padding-left: 20px;
+}
+
+.practice-box li,
+.notes-box li {
+  margin-bottom: 10px;
+}
+
+/* SPINNER */
+.spinner {
+  margin: 30px auto;
+  border: 6px solid #eee;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ANIMATIONS */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  textarea,
+  .result-box {
+    width: 90%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
