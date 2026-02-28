@@ -210,7 +210,7 @@ Respond ONLY in valid JSON format:
 
 
 # =====================================================
-# 🎥 4️⃣ YOUTUBE AI SUMMARIZER (Production Safe Version)
+# 🎥 4️⃣ YOUTUBE AI SUMMARIZER (Auto Language + Translate)
 # =====================================================
 
 @app.post("/summarize-youtube")
@@ -226,25 +226,30 @@ def summarize_youtube(data: YoutubeRequest):
     video_id = video_id_match.group(1)
 
     # ----------------------------
-    # 2️⃣ Fetch Transcript
+    # 2️⃣ Fetch Transcript (Smart Fallback)
     # ----------------------------
     try:
         transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
 
-        # Try English transcript first
         try:
+            # Try manually created English transcript
             transcript = transcript_list.find_transcript(['en'])
         except:
-            # Fallback to auto-generated English transcript
-            transcript = transcript_list.find_generated_transcript(['en'])
+            try:
+                # Try auto-generated English transcript
+                transcript = transcript_list.find_generated_transcript(['en'])
+            except:
+                # If no English transcript, take first available and translate
+                transcript = next(iter(transcript_list))
+                transcript = transcript.translate('en')
 
         transcript_data = transcript.fetch()
         transcript_text = " ".join([item['text'] for item in transcript_data])
 
-        # Limit text length to avoid token overflow
+        # Limit length to avoid token overflow
         transcript_text = transcript_text[:8000]
 
-    except Exception as e:
+    except Exception:
         return {
             "error": "No captions available for this video. Please try another video that has subtitles enabled."
         }
@@ -255,7 +260,7 @@ def summarize_youtube(data: YoutubeRequest):
     prompt = f"""
 You are an intelligent academic assistant.
 
-Summarize the following YouTube transcript clearly and concisely.
+Summarize the following YouTube transcript clearly.
 
 Transcript:
 {transcript_text}
@@ -270,7 +275,7 @@ Respond ONLY in valid JSON format:
 
 Rules:
 - Always fill all fields.
-- Do NOT include any text outside JSON.
+- Do NOT include text outside JSON.
 """
 
     completion = client.chat.completions.create(
