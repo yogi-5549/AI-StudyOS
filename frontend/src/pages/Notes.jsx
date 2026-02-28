@@ -103,8 +103,6 @@ function Notes() {
         <div className="logo">AI StudyOS</div>
         <div className="nav-links">
           <span onClick={() => navigate("/")}>Home</span>
-          <span>About</span>
-          <span>Contact Us</span>
         </div>
       </nav>
 

@@ -13,8 +13,6 @@ function Landing({ darkMode, setDarkMode }) {
 
         <div className="nav-links">
           <span>Home</span>
-          <span>About</span>
-          <span>Contact Us</span>
 
           <button
             className="theme-toggle"

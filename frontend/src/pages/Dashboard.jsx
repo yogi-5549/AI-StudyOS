@@ -20,8 +20,6 @@ function Dashboard({ darkMode, setDarkMode }) {
 
         <div className="nav-links">
           <span onClick={() => navigate("/")}>Home</span>
-          <span>About</span>
-          <span>Contact Us</span>
 
           <button
             className="theme-toggle"
