@@ -84,13 +84,19 @@
 }
 
 /* Dark Mode Enhancement */
+/* Dark Mode Base */
 [data-theme="dark"] .card {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
 }
 
+/* Dark Mode Hover Glow Effect */
 [data-theme="dark"] .card:hover {
-  transform: translateY(-12px) scale(1.04);
-  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.85);
+  transform: translateY(-14px) scale(1.05);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(0, 255, 200, 0.25);
+  filter: brightness(1.05);
 }
 
 /* ================= CARD COLORS ================= */

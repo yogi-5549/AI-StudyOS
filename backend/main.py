@@ -66,21 +66,28 @@ def home():
 def solve_doubt(data: Question):
 
     prompt = f"""
-You are a helpful academic tutor.
+You are an expert academic tutor.
 
-Explain the following question in a simple and structured way:
+Explain the following topic or question in a clear, structured, and educational way.
 
-Question:
+Topic:
 {data.question}
 
-Respond ONLY in valid JSON format:
+You MUST respond strictly in valid JSON format:
 
 {{
-  "summary": "Short explanation",
-  "step_by_step": "Detailed step by step explanation",
-  "example": "Give one clear example if applicable",
-  "key_takeaway": "Main important concept"
+  "summary": "Concise explanation of the topic",
+  "step_by_step": "Logical breakdown of the concept in steps (even for theoretical topics)",
+  "example": "Give one clear practical or real-world example",
+  "key_takeaway": "Main core idea or concept students must remember"
 }}
+
+Rules:
+- ALWAYS fill all four fields.
+- Even if the topic is theoretical, create logical step-by-step explanation.
+- Always include an example.
+- Do NOT leave any field empty.
+- Do NOT include any text outside the JSON.
 """
 
     completion = client.chat.completions.create(
