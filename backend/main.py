@@ -210,15 +210,15 @@ Respond ONLY in valid JSON format:
 
 
 # =====================================================
-# 🎥 4️⃣ YOUTUBE AI SUMMARIZER
+# 🎥 4️⃣ YOUTUBE AI SUMMARIZER (Production Safe Version)
 # =====================================================
 
 @app.post("/summarize-youtube")
 def summarize_youtube(data: YoutubeRequest):
 
-    import glob
-    import yt_dlp
-
+    # ----------------------------
+    # 1️⃣ Extract Video ID
+    # ----------------------------
     video_id_match = re.search(r"(?:v=|youtu\.be/)([a-zA-Z0-9_-]{11})", data.url)
     if not video_id_match:
         return {"error": "Invalid YouTube URL"}
@@ -226,69 +226,51 @@ def summarize_youtube(data: YoutubeRequest):
     video_id = video_id_match.group(1)
 
     # ----------------------------
-    # 1️⃣ Download Audio
+    # 2️⃣ Fetch Transcript
     # ----------------------------
     try:
-        ydl_opts = {
-            'format': 'bestaudio/best',
-            'outtmpl': f'{video_id}.%(ext)s',
-            'quiet': True,
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '128',  # Lower quality to reduce size
-            }],
-            'postprocessor_args': [
-                '-t', '600'  # Limit to first 600 seconds (10 minutes)
-            ]
-    }
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([data.url])
+        # Try English transcript first
+        try:
+            transcript = transcript_list.find_transcript(['en'])
+        except:
+            # Fallback to auto-generated English transcript
+            transcript = transcript_list.find_generated_transcript(['en'])
+
+        transcript_data = transcript.fetch()
+        transcript_text = " ".join([item['text'] for item in transcript_data])
+
+        # Limit text length to avoid token overflow
+        transcript_text = transcript_text[:8000]
 
     except Exception as e:
-        return {"error": f"Audio download failed: {str(e)}"}
+        return {
+            "error": "No captions available for this video. Please try another video that has subtitles enabled."
+        }
 
     # ----------------------------
-    # 2️⃣ Find Generated MP3
-    # ----------------------------
-    audio_files = glob.glob(f"{video_id}*.mp3")
-
-    if not audio_files:
-        return {"error": "Audio file not found after download"}
-
-    audio_filename = audio_files[0]
-
-    # ----------------------------
-    # 3️⃣ Transcribe
-    # ----------------------------
-    try:
-        with open(audio_filename, "rb") as audio_file:
-            transcription = client.audio.transcriptions.create(
-                file=audio_file,
-                model="whisper-large-v3-turbo"
-            )
-
-        transcript_text = transcription.text[:8000]
-
-    except Exception as e:
-        return {"error": f"Transcription failed: {str(e)}"}
-
-    # ----------------------------
-    # 4️⃣ Summarize
+    # 3️⃣ Summarize with LLM
     # ----------------------------
     prompt = f"""
-Summarize this transcript clearly.
+You are an intelligent academic assistant.
 
+Summarize the following YouTube transcript clearly and concisely.
+
+Transcript:
 {transcript_text}
 
-Respond ONLY in JSON:
+Respond ONLY in valid JSON format:
 
 {{
-  "summary": "...",
-  "key_points": ["Point 1"],
-  "takeaways": ["Takeaway 1"]
+  "summary": "Clear summary of the video",
+  "key_points": ["Point 1", "Point 2", "Point 3"],
+  "takeaways": ["Takeaway 1", "Takeaway 2"]
 }}
+
+Rules:
+- Always fill all fields.
+- Do NOT include any text outside JSON.
 """
 
     completion = client.chat.completions.create(
@@ -307,13 +289,5 @@ Respond ONLY in JSON:
             "key_points": [],
             "takeaways": []
         }
-
-    # ----------------------------
-    # 5️⃣ Cleanup
-    # ----------------------------
-    try:
-        os.remove(audio_filename)
-    except:
-        pass
 
     return structured_output
